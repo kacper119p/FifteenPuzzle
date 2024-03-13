@@ -4,20 +4,34 @@ namespace Pathfinding;
 
 public class AStarNode : Node
 {
-    private long _cost;
-
+    private readonly long _cost;
+    private readonly long _pathLength;
+    private readonly long _distanceToTarget;
+    
     public long Cost => _cost;
-
-    public AStarNode(State state, Node cameFrom, Direction move, long cost) : base(state, cameFrom, move)
+    public long PathLength => _pathLength;
+    public long DistanceToTarget => _distanceToTarget;
+    
+    public AStarNode(State state, Node cameFrom, Direction move) : base(state, cameFrom, move)
     {
-        _cost = cost;
+        _pathLength = 0;
+        _distanceToTarget = 0;
+        _cost = 0;
     }
 
-    public AStarNode AStarNodeFromMove
-        (AStarNode parent, Direction direction, long moveCost, State target, IHeuristic heuristic)
+    public AStarNode(State state, Node cameFrom, Direction move, long pathLength, long distanceToTarget)
+        : base(state, cameFrom, move)
     {
-        AStarNode result = new AStarNode(parent.State.StateFromMove(direction), parent, direction, 0);
-        result._cost = parent.Cost + moveCost + heuristic.Evaluate(result.State, target);
-        return result;
+        _pathLength = pathLength;
+        _distanceToTarget = distanceToTarget;
+        _cost = _pathLength + _distanceToTarget;
+    }
+
+    public AStarNode(AStarNode parent, Direction direction, long moveCost, State target, IHeuristic heuristic)
+        : base(parent.State.StateFromMove(direction), parent, direction)
+    {
+        _pathLength = parent._pathLength + moveCost;
+        _distanceToTarget = heuristic.Evaluate(this.State, target);
+        _cost = _pathLength + _distanceToTarget;
     }
 }
