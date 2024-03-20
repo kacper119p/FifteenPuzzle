@@ -1,0 +1,107 @@
+﻿using Pathfinding;
+using Pathfinding.Heuristics;
+
+namespace Program;
+
+public static class Parser
+{
+    public static IHeuristic ParseHeuristic(string heuristic)
+        => heuristic switch
+        {
+            "manh" => new Manhattan(),
+            "hamm" => new Hamming(),
+            _ => throw new ParserException("Invalid heuristic")
+        };
+
+
+    public static State ParseInputFile(string path)
+    {
+        using StreamReader reader = new StreamReader(path);
+        string row = reader.ReadLine() ?? throw new ParserException("Invalid Data");
+        string[] separated = row.Split(' ');
+        if (separated.Length != 2)
+        {
+            throw new ParserException("Invalid Data");
+        }
+
+        if (!int.TryParse(separated[0], out int rows))
+        {
+            throw new ParserException("Invalid Data");
+        }
+
+        if (!int.TryParse(separated[1], out int columns))
+        {
+            throw new ParserException("Invalid Data");
+        }
+
+        ushort[,] fields = new ushort[rows, columns];
+
+        for (int x = 0; x < rows; x++)
+        {
+            row = reader.ReadLine() ?? throw new ParserException();
+            separated = row.Split(' ');
+            if (separated.Length != columns)
+            {
+                throw new ParserException("Invalid Data");
+            }
+
+            for (int y = 0; y < columns; y++)
+            {
+                if (!ushort.TryParse(separated[y], out ushort value))
+                {
+                    throw new ParserException("Invalid Data");
+                }
+
+                fields[x, y] = value;
+            }
+        }
+
+        State result = new State(fields);
+        return result;
+    }
+
+    public static Strategy ParseStrategy(string strategy)
+        => strategy switch
+
+        {
+            "bfs" => Strategy.Bfs,
+            "dfs" => Strategy.Dfs,
+            "astr" => Strategy.AStar,
+            _ => throw new ParserException("Invalid strategy")
+        };
+
+    public static SearchOrder ParseSearchOrder(string searchOrder)
+    {
+        if (searchOrder.Length != SearchOrder.DirectionsCount)
+        {
+            throw new ArgumentException("InvalidSearchOrder");
+        }
+
+        Direction[] directions = new Direction[SearchOrder.DirectionsCount];
+
+        for (int i = 0; i < SearchOrder.DirectionsCount; i++)
+        {
+            directions[i] = searchOrder[i] switch
+            {
+                'u' => Direction.Up,
+                'd' => Direction.Down,
+                'l' => Direction.Left,
+                'r' => Direction.Right,
+                _ => throw new ArgumentException("InvalidSearchOrder")
+            };
+        }
+
+        return new SearchOrder(directions);
+    }
+
+    public class ParserException : Exception
+    {
+        public ParserException()
+        {
+        }
+
+        public ParserException(string message) : base(message)
+        {
+        }
+    }
+}

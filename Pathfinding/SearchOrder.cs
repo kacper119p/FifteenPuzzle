@@ -4,7 +4,7 @@ namespace Pathfinding;
 
 public class SearchOrder : IEnumerable<Direction>
 {
-    private const int DirectionsCount = 4;
+    public const int DirectionsCount = 4;
     private readonly Direction[] _directions = new Direction[DirectionsCount];
     public Direction this[int index] => _directions[index];
 

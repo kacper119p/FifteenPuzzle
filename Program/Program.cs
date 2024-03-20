@@ -9,11 +9,11 @@ public static class Program
     {
         /*
          * args
-         * 2 - strategy
-         * 3 - searchOrder/heuristic
-         * 4 - input file
-         * 5 - solution file
-         * 6 - stats file
+         * 0 - strategy
+         * 1 - searchOrder/heuristic
+         * 2 - input file
+         * 3 - solution file
+         * 4 - stats file
          */
         return 0;
     }
