@@ -4,6 +4,8 @@ namespace Pathfinding.Heuristics;
 
 public class Hamming : IHeuristic
 {
+    public int MoveCost { get => 2; }
+
     public int Evaluate(State a, State b)
     {
         if (a.Width != b.Width || a.Height != b.Height)

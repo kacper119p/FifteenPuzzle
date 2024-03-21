@@ -108,4 +108,14 @@ public class StateTests
         Assert.True(state1 == state2);
         Assert.False(state1 != state2);
     }
+
+    [Test]
+    public void SolvedTest()
+    {
+        State solved = State.GenerateSolved(2, 2);
+        Assert.AreEqual(1, solved[0, 0]);
+        Assert.AreEqual(2, solved[0, 1]);
+        Assert.AreEqual(3, solved[1, 0]);
+        Assert.AreEqual(0, solved[1, 1]);
+    }
 }

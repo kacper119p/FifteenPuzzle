@@ -186,4 +186,22 @@ public class State : IEquatable<State>
 
         return new State(fields, zeroPosition);
     }
+
+    public static State GenerateSolved(int height, int width)
+    {
+        ushort[,] fields = new ushort[height, width];
+        ushort k = 1;
+        for (int x = 0; x < height; x++)
+        {
+            for (int y = 0; y < width; y++)
+            {
+                fields[x, y] = k;
+                k++;
+            }
+        }
+
+        Point<int> zeroPosition = new Point<int>(fields.GetUpperBound(0), fields.GetUpperBound(1));
+        fields[zeroPosition.x, zeroPosition.y] = 0;
+        return new State(fields, zeroPosition);
+    }
 }

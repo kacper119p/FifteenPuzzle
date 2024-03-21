@@ -74,7 +74,7 @@ public static class Parser
     {
         if (searchOrder.Length != SearchOrder.DirectionsCount)
         {
-            throw new ArgumentException("InvalidSearchOrder");
+            throw new ParserException("InvalidSearchOrder");
         }
 
         Direction[] directions = new Direction[SearchOrder.DirectionsCount];
@@ -87,7 +87,7 @@ public static class Parser
                 'd' => Direction.Down,
                 'l' => Direction.Left,
                 'r' => Direction.Right,
-                _ => throw new ArgumentException("InvalidSearchOrder")
+                _ => throw new ParserException("InvalidSearchOrder")
             };
         }
 

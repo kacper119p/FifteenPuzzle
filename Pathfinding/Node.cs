@@ -1,25 +1,52 @@
-﻿namespace Pathfinding;
+﻿using System.Runtime.InteropServices;
+
+namespace Pathfinding;
 
 public class Node
 {
     private readonly State _state;
-    private readonly Node _cameFrom;
+    private readonly Node? _cameFrom;
     private readonly Direction _move;
+    private readonly int _depth;
 
     public State State => _state;
-    public Node CameFrom => _cameFrom;
+    public Node? CameFrom => _cameFrom;
 
     public Direction Move => _move;
 
-    public Node(State state, Node cameFrom, Direction move)
+    public int Depth => _depth;
+
+    public Node(State state, Node? cameFrom, Direction move)
     {
         _state = state;
         _cameFrom = cameFrom;
+        _depth = _cameFrom != null ? _cameFrom._depth : 0;
         _move = move;
     }
 
-    public Node NodeFromMove(Node parent, Direction direction)
+    public Node NodeFromMove(Direction direction)
     {
-        return new Node(parent.State.StateFromMove(direction), parent, direction);
+        return new Node(this.State.StateFromMove(direction), this, direction);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return _state.Equals(obj);
+    }
+
+    public static bool operator ==(Node? a, Node? b)
+    {
+        if (a is not null) return a._state.Equals(b?._state);
+        return b is null;
+    }
+
+    public static bool operator !=(Node? a, Node? b)
+    {
+        return !(a == b);
+    }
+
+    public override int GetHashCode()
+    {
+        return _state.GetHashCode();
     }
 }
