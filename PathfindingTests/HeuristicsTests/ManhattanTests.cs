@@ -16,11 +16,11 @@ public class ManhattanTests
         
         ushort[,] fields2 = { { 2, 1 }, { 0, 3 } };
         state2 = new State(fields2);
-        Assert.AreEqual(4, manhattan.Evaluate(state1, state2));
+        Assert.AreEqual(3, manhattan.Evaluate(state1, state2));
         
         ushort[,] fields3 = { { 0, 2 }, { 3, 1 } };
         state2 = new State(fields3);
-        Assert.AreEqual(4, manhattan.Evaluate(state1, state2));
+        Assert.AreEqual(2, manhattan.Evaluate(state1, state2));
         
         ushort[,] fields4 = { { 1, 0 }};
         state2 = new State(fields4);

@@ -16,7 +16,7 @@ public class HammingTests
         
         ushort[,] fields2 = { { 2, 1 }, { 0, 3 } };
         state2 = new State(fields2);
-        Assert.AreEqual(4, hamming.Evaluate(state1, state2));
+        Assert.AreEqual(3, hamming.Evaluate(state1, state2));
         
         ushort[,] fields3 = { { 1, 0 }};
         state2 = new State(fields3);

@@ -1,4 +1,5 @@
 using Pathfinding;
+using Pathfinding.Exceptions;
 
 namespace PathfindingTests;
 
@@ -42,8 +43,8 @@ public class StateTests
         target = new ushort[,] { { 0, 2 }, { 1, 3 } };
         CompareStateAndArray(state, target);
 
-        Assert.Throws<ArgumentException>(() => state.StateFromMove(Direction.Left));
-        Assert.Throws<ArgumentException>(() => state.StateFromMove(Direction.Up));
+        Assert.Throws<MoveException>(() => state.StateFromMove(Direction.Left));
+        Assert.Throws<MoveException>(() => state.StateFromMove(Direction.Up));
 
         state = state.StateFromMove(Direction.Right);
 
@@ -55,8 +56,8 @@ public class StateTests
         target = new ushort[,] { { 2, 3 }, { 1, 0 } };
         CompareStateAndArray(state, target);
 
-        Assert.Throws<ArgumentException>(() => state.StateFromMove(Direction.Down));
-        Assert.Throws<ArgumentException>(() => state.StateFromMove(Direction.Right));
+        Assert.Throws<MoveException>(() => state.StateFromMove(Direction.Down));
+        Assert.Throws<MoveException>(() => state.StateFromMove(Direction.Right));
         Assert.Throws<ArgumentException>(() => state.StateFromMove(Direction.None));
     }
 

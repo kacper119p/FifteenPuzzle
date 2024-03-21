@@ -4,7 +4,7 @@ namespace Pathfinding.Heuristics;
 
 public class Manhattan : IHeuristic
 {
-    public int MoveCost { get => 2; }
+    public int MoveCost { get => 1; }
     
     public int Evaluate(State a, State b)
     {
@@ -28,6 +28,10 @@ public class Manhattan : IHeuristic
         {
             for (int y = 0; y < a.Width; y++)
             {
+                if (b[x, y] == 0)
+                {
+                    continue;
+                }
                 distance += Distance(positions[b[x, y]], new Point<int>(x, y));
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace Pathfinding;
+﻿namespace Pathfinding.Exceptions;
 
 public class SolutionNotFoundException : Exception
 {

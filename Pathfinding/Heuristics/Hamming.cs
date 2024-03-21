@@ -4,7 +4,7 @@ namespace Pathfinding.Heuristics;
 
 public class Hamming : IHeuristic
 {
-    public int MoveCost { get => 2; }
+    public int MoveCost { get => 1; }
 
     public int Evaluate(State a, State b)
     {
@@ -18,7 +18,7 @@ public class Hamming : IHeuristic
         {
             for (int y = 0; y < a.Width; y++)
             {
-                if (a[x, y] != b[x, y])
+                if (a[x, y] != b[x, y] && a[x,y] != 0)
                 {
                     distance++;
                 }

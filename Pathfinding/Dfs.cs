@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Pathfinding.Exceptions;
 
 namespace Pathfinding;
 
@@ -71,13 +71,13 @@ public static class Dfs
 
                     open.Push(neighbour);
                 }
-                catch (ArgumentException)
+                catch (MoveException)
                 {
                 }
             }
         }
 
-        throw new Exception(); //fail
+        throw new SolutionNotFoundException();
     }
 
     private static LinkedList<Direction> GetSolution(Node goal)

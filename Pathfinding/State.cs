@@ -1,4 +1,5 @@
-﻿using UtilityLibrary;
+﻿using Pathfinding.Exceptions;
+using UtilityLibrary;
 
 namespace Pathfinding;
 
@@ -143,7 +144,7 @@ public class State : IEquatable<State>
             case Direction.Up:
                 if (_zeroPosition.x <= 0)
                 {
-                    throw new ArgumentException("IllegalMove");
+                    throw new MoveException("IllegalMove");
                 }
 
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
@@ -153,7 +154,7 @@ public class State : IEquatable<State>
             case Direction.Down:
                 if (_zeroPosition.x >= fields.GetUpperBound(0))
                 {
-                    throw new ArgumentException("IllegalMove");
+                    throw new MoveException("IllegalMove");
                 }
 
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
@@ -163,7 +164,7 @@ public class State : IEquatable<State>
             case Direction.Left:
                 if (_zeroPosition.y <= 0)
                 {
-                    throw new ArgumentException("IllegalMove");
+                    throw new MoveException("IllegalMove");
                 }
 
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
@@ -173,7 +174,7 @@ public class State : IEquatable<State>
             case Direction.Right:
                 if (_zeroPosition.y >= fields.GetUpperBound(1))
                 {
-                    throw new ArgumentException("IllegalMove");
+                    throw new MoveException("IllegalMove");
                 }
 
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
