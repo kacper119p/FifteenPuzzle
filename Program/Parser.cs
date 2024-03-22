@@ -83,10 +83,10 @@ public static class Parser
         {
             directions[i] = searchOrder[i] switch
             {
-                'u' => Direction.Up,
-                'd' => Direction.Down,
-                'l' => Direction.Left,
-                'r' => Direction.Right,
+                'U' => Direction.Up,
+                'D' => Direction.Down,
+                'L' => Direction.Left,
+                'R' => Direction.Right,
                 _ => throw new ParserException("InvalidSearchOrder")
             };
         }
