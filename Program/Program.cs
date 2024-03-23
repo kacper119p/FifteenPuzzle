@@ -1,4 +1,5 @@
 ﻿using Pathfinding;
+using Pathfinding.Heuristics;
 
 namespace Program;
 
@@ -29,12 +30,24 @@ public static class Program
         }
 
         State goal = State.GenerateSolved(startState.Height, startState.Width);
-        PathfindingData result = strategy switch
+        ISolver solver;
+        try
         {
-            Strategy.Bfs => throw new NotImplementedException(),
-            Strategy.Dfs => Dfs.Solve(startState, goal, Parser.ParseSearchOrder(args[1])),
-            Strategy.AStar => throw new NotImplementedException(),
-        };
+            solver = strategy switch
+            {
+                Strategy.Bfs => throw new NotImplementedException(),
+                Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(args[1])),
+                Strategy.AStar => throw new NotImplementedException(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+        catch (Parser.ParserException e)
+        {
+            Console.WriteLine(e.Message);
+            return 1;
+        }
+
+        PathfindingData pathfindingData = solver.Solve(startState, goal);
 
         return 0;
     }

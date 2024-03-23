@@ -1,11 +1,17 @@
 ﻿using System.Diagnostics;
 using Pathfinding.Exceptions;
+using Pathfinding.Heuristics;
 
 namespace Pathfinding;
 
-public static class Dfs
+public class DfsSolver : ISolver
 {
-    public static PathfindingData Solve(State start, State goal, SearchOrder searchOrder)
+    private readonly SearchOrder _searchOrder;
+    public DfsSolver(SearchOrder searchOrder)
+    {
+        _searchOrder = searchOrder;
+    }
+    public PathfindingData Solve(State start, State goal)
     {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
@@ -43,7 +49,7 @@ public static class Dfs
             {
                 try
                 {
-                    Node neighbour = current.NodeFromMove(searchOrder[i]);
+                    Node neighbour = current.NodeFromMove(_searchOrder[i]);
                     if (!visited.Add(neighbour))
                     {
                         continue;

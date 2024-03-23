@@ -1,4 +1,5 @@
 ﻿using Pathfinding;
+using Pathfinding.Heuristics;
 
 namespace PathfindingTests;
 
@@ -11,8 +12,8 @@ public class DfsTests
         State goal = State.GenerateSolved(2, 2);
         SearchOrder searchOrder = new SearchOrder(new Direction[]
             { Direction.Right, Direction.Down, Direction.Left, Direction.Up });
-
-        PathfindingData result = Dfs.Solve(start, goal, searchOrder);
+        ISolver solver = new DfsSolver(searchOrder);
+        PathfindingData result = solver.Solve(start, goal);
         State current = start;
         foreach (Direction move in result.solution)
         {
