@@ -63,7 +63,7 @@ public class DfsSolver : ISolver
                     statesVisited++;
                     if (neighbour.State == goal)
                     {
-                        LinkedList<Direction> solution = GetSolution(neighbour);
+                        LinkedList<Direction> solution = neighbour.TraceBack();
                         return new PathfindingData()
                         {
                             solution = solution,
@@ -84,18 +84,5 @@ public class DfsSolver : ISolver
         }
 
         throw new SolutionNotFoundException();
-    }
-
-    private static LinkedList<Direction> GetSolution(Node goal)
-    {
-        LinkedList<Direction> result = new LinkedList<Direction>();
-        Node? current = goal;
-        do
-        {
-            result.AddFirst(current.Move);
-            current = current.CameFrom;
-        } while (current!.Move != Direction.None);
-
-        return result;
     }
 }

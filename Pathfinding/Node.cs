@@ -49,4 +49,17 @@ internal class Node
     {
         return _state.GetHashCode();
     }
+    
+    public LinkedList<Direction> TraceBack()
+    {
+        LinkedList<Direction> result = new LinkedList<Direction>();
+        Node? current = this;
+        do
+        {
+            result.AddFirst(current.Move);
+            current = current.CameFrom;
+        } while (current!.Move != Direction.None);
+
+        return result;
+    }
 }

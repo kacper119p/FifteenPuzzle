@@ -4,7 +4,7 @@ namespace Pathfinding.Heuristics;
 
 public class Hamming : IHeuristic
 {
-    public int MoveCost { get => 1; }
+    public int MoveCost => 1;
 
     public int Evaluate(State a, State b)
     {

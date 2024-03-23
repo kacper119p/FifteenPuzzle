@@ -4,8 +4,8 @@ namespace Pathfinding.Heuristics;
 
 public class Manhattan : IHeuristic
 {
-    public int MoveCost { get => 1; }
-    
+    public int MoveCost => 1;
+
     public int Evaluate(State a, State b)
     {
         if (a.Width != b.Width || a.Height != b.Height)
