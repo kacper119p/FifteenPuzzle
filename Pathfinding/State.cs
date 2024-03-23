@@ -179,7 +179,7 @@ public class State : IEquatable<State>
     /// <param name="height">Desired height of the board.</param>
     /// <param name="width">Desired width of the board</param>
     /// <returns>Solved 15puzzle board.</returns>
-    /// <exception cref="ArgumentException">Height or Width is 0, or Height * Width is greater than 255.</exception>
+    /// <exception cref="ArgumentException">Height or Width is 0, or Height * Width is greater than byte.MaxValue</exception>
     public static State GenerateSolved(int height, int width)
     {
         if (height == 0 || width == 0)
