@@ -89,7 +89,7 @@ public class StateTests
 
         Assert.False(state1.Equals(new bool()));
 
-        fields2 = new byte[,] { { 3, 0 } };
+        fields2 = new byte[,] { { 1, 0 } };
         state2 = new State(fields2);
         Assert.False(state1 == state2);
         Assert.False(state1.Equals(state2));
