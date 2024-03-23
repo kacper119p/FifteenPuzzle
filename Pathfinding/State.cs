@@ -5,17 +5,17 @@ namespace Pathfinding;
 
 public class State : IEquatable<State>
 {
-    private readonly ushort[,] _fields;
-    private Point<int> _zeroPosition;
+    private readonly byte[,] _fields;
+    private readonly Point<int> _zeroPosition;
 
     public int Height => _fields.GetLength(0);
     public int Width => _fields.GetLength(1);
 
     public ushort this[int x, int y] => _fields[x, y];
 
-    public State(ushort[,] fields)
+    public State(byte[,] fields)
     {
-        _fields = new ushort[fields.GetLength(0), fields.GetLength(1)];
+        _fields = new byte[fields.GetLength(0), fields.GetLength(1)];
         for (int x = 0; x < Height; x++)
         {
             for (int y = 0; y < Width; y++)
@@ -27,7 +27,7 @@ public class State : IEquatable<State>
         _zeroPosition = GetZeroPosition();
     }
 
-    private State(ushort[,] fields, Point<int> zeroPosition)
+    private State(byte[,] fields, Point<int> zeroPosition)
     {
         _fields = fields;
         _zeroPosition = zeroPosition;
@@ -108,7 +108,12 @@ public class State : IEquatable<State>
     public bool Validate()
     {
         int max = Height * Width;
-        for (ushort i = 0; i < max; i++)
+        if (max > byte.MaxValue)
+        {
+            return false;
+        }
+
+        for (byte i = 0; i < max; i++)
         {
             int count = 0;
             for (int x = 0; x < Height; x++)
@@ -137,7 +142,7 @@ public class State : IEquatable<State>
 
     public State StateFromMove(Direction direction)
     {
-        ushort[,] fields = _fields.Copy2DArray();
+        byte[,] fields = _fields.Copy2DArray();
         Point<int> zeroPosition;
         switch (direction)
         {
@@ -190,8 +195,16 @@ public class State : IEquatable<State>
 
     public static State GenerateSolved(int height, int width)
     {
-        ushort[,] fields = new ushort[height, width];
-        ushort k = 1;
+        if (height == 0 || width == 0)
+        {
+            throw new ArgumentException("Dimension can't be 0");
+        }
+        if (height * width > byte.MaxValue + 1)
+        {
+            throw new ArgumentException("Board too big");
+        }
+        byte[,] fields = new byte[height, width];
+        byte k = 1;
         for (int x = 0; x < height; x++)
         {
             for (int y = 0; y < width; y++)

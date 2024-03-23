@@ -7,7 +7,7 @@ public class DfsTests
     [Test]
     public void SolvingTest()
     {
-        State start = new State(new ushort[,] { { 0, 1 }, { 3, 2 } });
+        State start = new State(new byte[,] { { 0, 1 }, { 3, 2 } });
         State goal = State.GenerateSolved(2, 2);
         SearchOrder searchOrder = new SearchOrder(new Direction[]
             { Direction.Right, Direction.Down, Direction.Left, Direction.Up });

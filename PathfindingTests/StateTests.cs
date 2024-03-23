@@ -8,7 +8,7 @@ public class StateTests
     [Test]
     public void ValidationTest()
     {
-        ushort[,] fields = { { 1, 2 }, { 3, 0 } };
+        byte[,] fields = { { 1, 2 }, { 3, 0 } };
 
         State state = new State(fields);
         Assert.True(state.Validate());
@@ -32,7 +32,7 @@ public class StateTests
     [Test]
     public void MoveTest()
     {
-        ushort[,] fields = { { 1, 2 }, { 3, 0 } };
+        byte[,] fields = { { 1, 2 }, { 3, 0 } };
         State state = new State(fields);
         state = state.StateFromMove(Direction.Left);
 
@@ -75,8 +75,8 @@ public class StateTests
     [Test]
     public void EqualityTest()
     {
-        ushort[,] fields1 = { { 1, 2 }, { 3, 0 } };
-        ushort[,] fields2 = { { 1, 2 }, { 3, 0 } };
+        byte[,] fields1 = { { 1, 2 }, { 3, 0 } };
+        byte[,] fields2 = { { 1, 2 }, { 3, 0 } };
         State state1 = new State(fields1);
         State state2 = new State(fields2);
 
@@ -85,7 +85,7 @@ public class StateTests
         Assert.False(state1 != state2);
         Assert.AreEqual(state1.GetHashCode(), state2.GetHashCode());
 
-        fields2 = new ushort[,] { { 0, 2 }, { 1, 3 } };
+        fields2 = new byte[,] { { 0, 2 }, { 1, 3 } };
         state2 = new State(fields2);
 
         Assert.False(state1 == state2);
@@ -94,7 +94,7 @@ public class StateTests
 
         Assert.False(state1.Equals(new bool()));
 
-        fields2 = new ushort[,] { { 3, 0 } };
+        fields2 = new byte[,] { { 3, 0 } };
         state2 = new State(fields2);
         Assert.False(state1 == state2);
         Assert.False(state1.Equals(state2));
@@ -118,5 +118,10 @@ public class StateTests
         Assert.AreEqual(2, solved[0, 1]);
         Assert.AreEqual(3, solved[1, 0]);
         Assert.AreEqual(0, solved[1, 1]);
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(17, 17));
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(300, 1));
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(1, 300));
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(0, 1));
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(1, 0));
     }
 }

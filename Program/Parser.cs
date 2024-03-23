@@ -34,7 +34,7 @@ public static class Parser
             throw new ParserException("Invalid Data");
         }
 
-        ushort[,] fields = new ushort[rows, columns];
+        byte[,] fields = new byte[rows, columns];
 
         for (int x = 0; x < rows; x++)
         {
@@ -47,7 +47,7 @@ public static class Parser
 
             for (int y = 0; y < columns; y++)
             {
-                if (!ushort.TryParse(separated[y], out ushort value))
+                if (!byte.TryParse(separated[y], out byte value))
                 {
                     throw new ParserException("Invalid Data");
                 }

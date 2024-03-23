@@ -1,6 +1,6 @@
 ﻿namespace Pathfinding;
 
-public struct Point<T>
+internal struct Point<T>
 {
     public readonly T x;
     public readonly T y;

@@ -2,7 +2,7 @@
 
 namespace Pathfinding;
 
-public class Node
+internal class Node
 {
     private readonly State _state;
     private readonly Node? _cameFrom;

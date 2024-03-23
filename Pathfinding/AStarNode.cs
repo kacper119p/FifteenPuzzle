@@ -2,7 +2,7 @@
 
 namespace Pathfinding;
 
-public class AStarNode : Node
+internal class AStarNode : Node
 {
     private readonly long _cost;
     private readonly long _pathLength;
