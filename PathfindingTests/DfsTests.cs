@@ -19,7 +19,7 @@ public class DfsTests
         {
             current = current.StateFromMove(move);
         }
-        
+
         Assert.AreEqual(goal, current);
     }
 }

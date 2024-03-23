@@ -13,12 +13,12 @@ public class HammingTests
         State state2 = new State(fields1);
         IHeuristic hamming = new Hamming();
         Assert.AreEqual(0, hamming.Evaluate(state1, state2));
-        
+
         byte[,] fields2 = { { 2, 1 }, { 0, 3 } };
         state2 = new State(fields2);
         Assert.AreEqual(3, hamming.Evaluate(state1, state2));
-        
-        byte[,] fields3 = { { 1, 0 }};
+
+        byte[,] fields3 = { { 1, 0 } };
         state2 = new State(fields3);
         Assert.Throws<ArgumentException>(() => hamming.Evaluate(state1, state2));
     }

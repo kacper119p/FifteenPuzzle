@@ -18,12 +18,13 @@ public class Hamming : IHeuristic
         {
             for (int y = 0; y < a.Width; y++)
             {
-                if (a[x, y] != b[x, y] && a[x,y] != 0)
+                if (a[x, y] != b[x, y] && a[x, y] != 0)
                 {
                     distance++;
                 }
             }
         }
+
         return distance;
     }
 }

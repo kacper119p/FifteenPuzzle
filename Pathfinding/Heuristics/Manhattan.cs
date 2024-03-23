@@ -32,9 +32,11 @@ public class Manhattan : IHeuristic
                 {
                     continue;
                 }
+
                 distance += Distance(positions[b[x, y]], new Point<int>(x, y));
             }
         }
+
         return distance;
     }
 

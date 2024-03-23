@@ -40,7 +40,7 @@ public class SearchOrder : IEnumerable<Direction>
         {
             _searchOrder = searchOrder;
         }
-        
+
         public bool MoveNext()
         {
             _current++;
@@ -52,7 +52,10 @@ public class SearchOrder : IEnumerable<Direction>
             _current = -1;
         }
 
-        public Direction Current { get => _searchOrder._directions[_current]; }
+        public Direction Current
+        {
+            get => _searchOrder._directions[_current];
+        }
 
         object IEnumerator.Current => Current;
 

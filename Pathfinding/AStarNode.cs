@@ -7,11 +7,11 @@ internal class AStarNode : Node
     private readonly long _cost;
     private readonly long _pathLength;
     private readonly long _distanceToTarget;
-    
+
     public long Cost => _cost;
     public long PathLength => _pathLength;
     public long DistanceToTarget => _distanceToTarget;
-    
+
     public AStarNode(State state, Node cameFrom, Direction move) : base(state, cameFrom, move)
     {
         _pathLength = 0;

@@ -7,10 +7,12 @@ namespace Pathfinding;
 public class DfsSolver : ISolver
 {
     private readonly SearchOrder _searchOrder;
+
     public DfsSolver(SearchOrder searchOrder)
     {
         _searchOrder = searchOrder;
     }
+
     public PathfindingData Solve(State start, State goal)
     {
         Stopwatch stopwatch = new Stopwatch();

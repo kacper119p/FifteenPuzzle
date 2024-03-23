@@ -12,7 +12,7 @@ public class SearchOrderTests
 
         directions = new Direction[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right, Direction.Right };
         Assert.Throws<ArgumentException>(() => new SearchOrder(directions));
-        
+
         directions = new Direction[] { Direction.Up, Direction.Left, Direction.Right };
         Assert.Throws<ArgumentException>(() => new SearchOrder(directions));
     }

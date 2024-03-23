@@ -2,6 +2,11 @@
 
 public class MoveException : Exception
 {
-    public MoveException(){}
-    public MoveException(string message) : base(message){}
+    public MoveException()
+    {
+    }
+
+    public MoveException(string message) : base(message)
+    {
+    }
 }

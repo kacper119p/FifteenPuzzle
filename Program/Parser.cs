@@ -56,8 +56,15 @@ public static class Parser
             }
         }
 
-        State result = new State(fields);
-        return result;
+        try
+        {
+            State result = new State(fields);
+            return result;
+        }
+        catch (ArgumentException e)
+        {
+            throw new ParserException("No zero in fields");
+        }
     }
 
     public static Strategy ParseStrategy(string strategy)

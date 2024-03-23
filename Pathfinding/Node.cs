@@ -49,7 +49,7 @@ internal class Node
     {
         return _state.GetHashCode();
     }
-    
+
     public LinkedList<Direction> TraceBack()
     {
         LinkedList<Direction> result = new LinkedList<Direction>();

@@ -9,24 +9,19 @@ public class StateTests
     public void ValidationTest()
     {
         byte[,] fields = { { 1, 2 }, { 3, 0 } };
-
-        State state = new State(fields);
-        Assert.True(state.Validate());
+        Assert.DoesNotThrow(() => new State(fields));
 
         fields[1, 0] = 0;
-        state = new State(fields);
-        Assert.False(state.Validate());
+        Assert.Throws<ArgumentException>(() => new State(fields));
 
         fields[1, 0] = 3;
-        state = new State(fields);
-        Assert.True(state.Validate());
+        Assert.DoesNotThrow(() => new State(fields));
 
         fields[1, 0] = 10;
-        state = new State(fields);
-        Assert.False(state.Validate());
+        Assert.Throws<ArgumentException>(() => new State(fields));
 
         fields[1, 1] = 1;
-        Assert.Throws<ArgumentException>(() => state = new State(fields));
+        Assert.Throws<ArgumentException>(() => new State(fields));
     }
 
     [Test]
@@ -118,7 +113,7 @@ public class StateTests
         Assert.AreEqual(2, solved[0, 1]);
         Assert.AreEqual(3, solved[1, 0]);
         Assert.AreEqual(0, solved[1, 1]);
-        Assert.Throws<ArgumentException>(() => State.GenerateSolved(17, 17));
+        Assert.Throws<ArgumentException>(() => State.GenerateSolved(16, 16));
         Assert.Throws<ArgumentException>(() => State.GenerateSolved(300, 1));
         Assert.Throws<ArgumentException>(() => State.GenerateSolved(1, 300));
         Assert.Throws<ArgumentException>(() => State.GenerateSolved(0, 1));

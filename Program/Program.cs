@@ -47,7 +47,10 @@ public static class Program
             return 1;
         }
 
-        PathfindingData pathfindingData = solver.Solve(startState, goal);
+        PathfindingData solutionData = solver.Solve(startState, goal);
+
+        OutputUtility.OutputSolution(args[3], solutionData);
+        OutputUtility.OutputStats(args[4], solutionData);
 
         return 0;
     }
