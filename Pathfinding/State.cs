@@ -118,7 +118,7 @@ public class State : IEquatable<State>
     /// <exception cref="ArgumentException">Given Direction is invalid.</exception>
     public State StateFromMove(Direction direction)
     {
-        byte[,] fields = _fields.Copy2DArray();
+        byte[,] fields;
         Point<int> zeroPosition;
         switch (direction)
         {
@@ -128,16 +128,18 @@ public class State : IEquatable<State>
                     throw new MoveException("IllegalMove");
                 }
 
+                fields = _fields.Copy2DArray();
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
                     ref fields[_zeroPosition.x - 1, _zeroPosition.y]);
                 zeroPosition = new Point<int>(_zeroPosition.x - 1, _zeroPosition.y);
                 break;
             case Direction.Down:
-                if (_zeroPosition.x >= fields.GetUpperBound(0))
+                if (_zeroPosition.x >= _fields.GetUpperBound(0))
                 {
                     throw new MoveException("IllegalMove");
                 }
 
+                fields = _fields.Copy2DArray();
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
                     ref fields[_zeroPosition.x + 1, _zeroPosition.y]);
                 zeroPosition = new Point<int>(_zeroPosition.x + 1, _zeroPosition.y);
@@ -148,16 +150,18 @@ public class State : IEquatable<State>
                     throw new MoveException("IllegalMove");
                 }
 
+                fields = _fields.Copy2DArray();
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
                     ref fields[_zeroPosition.x, _zeroPosition.y - 1]);
                 zeroPosition = new Point<int>(_zeroPosition.x, _zeroPosition.y - 1);
                 break;
             case Direction.Right:
-                if (_zeroPosition.y >= fields.GetUpperBound(1))
+                if (_zeroPosition.y >= _fields.GetUpperBound(1))
                 {
                     throw new MoveException("IllegalMove");
                 }
 
+                fields = _fields.Copy2DArray();
                 VariablesUtility.Swap(ref fields[_zeroPosition.x, _zeroPosition.y],
                     ref fields[_zeroPosition.x, _zeroPosition.y + 1]);
                 zeroPosition = new Point<int>(_zeroPosition.x, _zeroPosition.y + 1);
