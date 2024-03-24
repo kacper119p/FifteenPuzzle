@@ -42,7 +42,6 @@ public static class OutputUtility
         writer.WriteLine(data.statesVisited);
         writer.WriteLine(data.statesProcessed);
         writer.WriteLine(data.maxDepth);
-        writer.WriteLine(data.solutionLength);
         writer.WriteLine(string.Format(numberFormatInfo, "{0:N}", data.processingTimeMilliseconds));
     }
 }
