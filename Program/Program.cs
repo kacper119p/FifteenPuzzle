@@ -35,7 +35,7 @@ public static class Program
         {
             solver = strategy switch
             {
-                Strategy.Bfs => throw new NotImplementedException(),
+                Strategy.Bfs => new BfsSolver(Parser.ParseSearchOrder(args[1])),
                 Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(args[1])),
                 Strategy.AStar => throw new NotImplementedException(),
                 _ => throw new ArgumentOutOfRangeException()
