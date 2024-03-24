@@ -37,7 +37,7 @@ public static class Program
             {
                 Strategy.Bfs => new BfsSolver(Parser.ParseSearchOrder(args[1])),
                 Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(args[1])),
-                Strategy.AStar => throw new NotImplementedException(),
+                Strategy.AStar => new AStarSolver(Parser.ParseHeuristic(args[1])),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

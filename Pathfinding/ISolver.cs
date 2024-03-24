@@ -1,4 +1,4 @@
-﻿namespace Pathfinding.Heuristics;
+﻿namespace Pathfinding;
 
 public interface ISolver
 {

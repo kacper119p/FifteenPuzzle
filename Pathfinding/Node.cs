@@ -20,7 +20,7 @@ internal class Node
     {
         _state = state;
         _cameFrom = cameFrom;
-        _depth = _cameFrom != null ? _cameFrom._depth : 0;
+        _depth = _cameFrom != null ? _cameFrom._depth + 1 : 0;
         _move = move;
     }
 
