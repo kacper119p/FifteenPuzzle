@@ -11,7 +11,7 @@ internal class AStarNode : Node
     public ulong Cost => _cost;
     public ulong PathLength => _pathLength;
     public ulong DistanceToTarget => _distanceToTarget;
-    
+
     public AStarNode(State state) : base(state)
     {
         _pathLength = 0;

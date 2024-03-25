@@ -6,6 +6,7 @@ public interface IHeuristic
     /// Cost of single move.
     /// </summary>
     public int MoveCost { get; }
+
     /// <summary>
     /// Calculates distance between two states.
     /// </summary>

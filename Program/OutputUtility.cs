@@ -26,6 +26,7 @@ public static class OutputUtility
             writer.WriteLine("-1");
             return;
         }
+
         writer.WriteLine(data.solutionLength);
         foreach (Direction direction in data.solution)
         {

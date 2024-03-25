@@ -22,8 +22,6 @@ public class AStarSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 1;
-        long statesProcessed = 0;
 
         if (start == goal)
         {
@@ -31,8 +29,8 @@ public class AStarSolver : ISolver
             {
                 solution = new LinkedList<Direction>(),
                 solutionLength = 0,
-                statesVisited = statesVisited,
-                statesProcessed = statesProcessed,
+                statesVisited = 1,
+                statesProcessed = 0,
                 maxDepth = maxDepth,
                 processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
             };
@@ -45,7 +43,8 @@ public class AStarSolver : ISolver
         AStarNode startNode = new AStarNode(start);
 
         open.Enqueue(startNode, 0ul);
-        
+        visited.Add(startNode);
+
         while (open.Count > 0)
         {
             AStarNode current = open.Dequeue();
@@ -54,8 +53,6 @@ public class AStarSolver : ISolver
             {
                 continue;
             }
-            
-            statesProcessed++;
 
             if (current.State == goal)
             {
@@ -64,8 +61,8 @@ public class AStarSolver : ISolver
                 {
                     solution = solution,
                     solutionLength = solution.Count,
-                    statesVisited = statesVisited,
-                    statesProcessed = statesProcessed,
+                    statesVisited = visited.Count,
+                    statesProcessed = processed.Count,
                     maxDepth = maxDepth,
                     processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
                 };
@@ -81,11 +78,8 @@ public class AStarSolver : ISolver
                         continue;
                     }
 
-                    if (visited.Add(neighbour))
-                    {
-                        statesVisited++;
-                    }
-                    
+                    visited.Add(neighbour);
+
                     if (neighbour.Depth > maxDepth)
                     {
                         maxDepth = neighbour.Depth;
@@ -103,8 +97,8 @@ public class AStarSolver : ISolver
         {
             solution = null,
             solutionLength = -1,
-            statesVisited = statesVisited,
-            statesProcessed = statesProcessed,
+            statesVisited = visited.Count,
+            statesProcessed = processed.Count,
             maxDepth = maxDepth,
             processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
         });

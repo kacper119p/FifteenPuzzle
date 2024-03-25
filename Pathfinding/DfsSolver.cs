@@ -53,7 +53,7 @@ public class DfsSolver : ISolver
             {
                 processed[current] = current.Depth;
             }
-            
+
             if (current.State == goal)
             {
                 LinkedList<Direction> solution = current.TraceBack();
@@ -67,12 +67,12 @@ public class DfsSolver : ISolver
                     processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
                 };
             }
-            
+
             if (current.Depth >= MaxAllowedDepth)
             {
                 continue;
             }
-            
+
             for (int i = SearchOrder.DirectionsCount - 1; i >= 0; i--)
             {
                 try
@@ -84,7 +84,7 @@ public class DfsSolver : ISolver
                     {
                         maxDepth = neighbour.Depth;
                     }
-                    
+
                     if (!processed.ContainsKey(neighbour) || processed[neighbour] >= neighbour.Depth)
                     {
                         open.Push(neighbour);

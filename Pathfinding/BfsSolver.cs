@@ -18,7 +18,6 @@ public class BfsSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 1;
         long statesProcessed = 0;
 
         if (start == goal)
@@ -27,7 +26,7 @@ public class BfsSolver : ISolver
             {
                 solution = new LinkedList<Direction>(),
                 solutionLength = 0,
-                statesVisited = statesVisited,
+                statesVisited = 1,
                 statesProcessed = statesProcessed,
                 maxDepth = maxDepth,
                 processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
@@ -47,7 +46,7 @@ public class BfsSolver : ISolver
 
             statesProcessed++;
 
-            for(int i = 0; i < SearchOrder.DirectionsCount; i++)
+            for (int i = 0; i < SearchOrder.DirectionsCount; i++)
             {
                 try
                 {
@@ -62,7 +61,6 @@ public class BfsSolver : ISolver
                         maxDepth = neighbour.Depth;
                     }
 
-                    statesVisited++;
                     if (neighbour.State == goal)
                     {
                         LinkedList<Direction> solution = neighbour.TraceBack();
@@ -70,7 +68,7 @@ public class BfsSolver : ISolver
                         {
                             solution = solution,
                             solutionLength = solution.Count,
-                            statesVisited = statesVisited,
+                            statesVisited = visited.Count,
                             statesProcessed = statesProcessed,
                             maxDepth = maxDepth,
                             processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
@@ -89,7 +87,7 @@ public class BfsSolver : ISolver
         {
             solution = null,
             solutionLength = -1,
-            statesVisited = statesVisited,
+            statesVisited = visited.Count,
             statesProcessed = statesProcessed,
             maxDepth = maxDepth,
             processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
