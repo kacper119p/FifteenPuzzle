@@ -5,6 +5,7 @@ namespace Pathfinding;
 
 public class DfsSolver : ISolver
 {
+    private const int MaxAllowedDepth = 20;
     private readonly SearchOrder _searchOrder;
 
     public DfsSolver(SearchOrder searchOrder)
@@ -66,6 +67,12 @@ public class DfsSolver : ISolver
             }
             
             statesProcessed++;
+            
+            if (current.Depth >= MaxAllowedDepth)
+            {
+                continue;
+            }
+            
             for (int i = SearchOrder.DirectionsCount - 1; i >= 0; i--)
             {
                 try
