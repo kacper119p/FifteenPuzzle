@@ -48,7 +48,6 @@ public class DfsSolver : ISolver
 
             if (!processed.Add(current))
             {
-                Console.WriteLine("a");
                 continue;
             }
             
