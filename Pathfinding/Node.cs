@@ -31,7 +31,11 @@ internal class Node
 
     public override bool Equals(object? obj)
     {
-        return _state.Equals(obj);
+        if (obj is not Node node)
+        {
+            return true;
+        }
+        return _state.Equals(node._state);
     }
 
     public static bool operator ==(Node? a, Node? b)

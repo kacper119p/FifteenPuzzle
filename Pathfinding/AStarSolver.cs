@@ -22,7 +22,7 @@ public class AStarSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 0;
+        long statesVisited = 1;
         long statesProcessed = 0;
 
         if (start == goal)
@@ -45,7 +45,6 @@ public class AStarSolver : ISolver
         AStarNode startNode = new AStarNode(start, null, Direction.None);
 
         open.Enqueue(startNode, 0ul);
-        processed.Add(startNode);
         
         while (open.Count > 0)
         {

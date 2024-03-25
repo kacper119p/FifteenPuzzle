@@ -18,7 +18,7 @@ public class BfsSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 0;
+        long statesVisited = 1;
         long statesProcessed = 0;
 
         if (start == goal)

@@ -18,7 +18,7 @@ public class DfsSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 0;
+        long statesVisited = 1;
         long statesProcessed = 0;
 
         if (start == goal)
@@ -36,6 +36,7 @@ public class DfsSolver : ISolver
 
         Stack<Node> open = new Stack<Node>();
         HashSet<Node> visited = new HashSet<Node>();
+        HashSet<Node> processed = new HashSet<Node>();
 
         Node startNode = new Node(start, null, Direction.None);
 
@@ -45,15 +46,35 @@ public class DfsSolver : ISolver
         {
             Node current = open.Pop();
 
+            if (!processed.Add(current))
+            {
+                Console.WriteLine("a");
+                continue;
+            }
+            
+            if (current.State == goal)
+            {
+                LinkedList<Direction> solution = current.TraceBack();
+                return new PathfindingData()
+                {
+                    solution = solution,
+                    solutionLength = solution.Count,
+                    statesVisited = statesVisited,
+                    statesProcessed = statesProcessed,
+                    maxDepth = maxDepth,
+                    processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
+                };
+            }
+            
             statesProcessed++;
             for (int i = SearchOrder.DirectionsCount - 1; i >= 0; i--)
             {
                 try
                 {
                     Node neighbour = current.NodeFromMove(_searchOrder[i]);
-                    if (!visited.Add(neighbour))
+                    if (visited.Add(neighbour))
                     {
-                        continue;
+                        statesVisited++;
                     }
 
                     if (neighbour.Depth > maxDepth)
@@ -61,22 +82,10 @@ public class DfsSolver : ISolver
                         maxDepth = neighbour.Depth;
                     }
 
-                    statesVisited++;
-                    if (neighbour.State == goal)
+                    if (!processed.Contains(neighbour))
                     {
-                        LinkedList<Direction> solution = neighbour.TraceBack();
-                        return new PathfindingData()
-                        {
-                            solution = solution,
-                            solutionLength = solution.Count,
-                            statesVisited = statesVisited,
-                            statesProcessed = statesProcessed,
-                            maxDepth = maxDepth,
-                            processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
-                        };
+                        open.Push(neighbour);
                     }
-
-                    open.Push(neighbour);
                 }
                 catch (MoveException)
                 {
