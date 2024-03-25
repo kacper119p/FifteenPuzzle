@@ -1,4 +1,5 @@
 ﻿using Pathfinding;
+using Pathfinding.Exceptions;
 
 namespace Program;
 
@@ -6,21 +7,18 @@ public static class Program
 {
     public static int Main(string[] args)
     {
-        /*
-         * args
-         * 0 - strategy
-         * 1 - searchOrder/heuristic
-         * 2 - input file
-         * 3 - solution file
-         * 4 - stats file
-         */
+        string argStrategy = args[0];
+        string argSearchOrderHeuristic = args[1];
+        string argInputFile = args[2];
+        string argSolutionFile = args[3];
+        string argStatsFile = args[4];
 
         Strategy strategy;
         State startState;
         try
         {
-            strategy = Parser.ParseStrategy(args[0]);
-            startState = Parser.ParseInputFile(args[2]);
+            strategy = Parser.ParseStrategy(argStrategy);
+            startState = Parser.ParseInputFile(argInputFile);
         }
         catch (Parser.ParserException e)
         {
@@ -34,9 +32,9 @@ public static class Program
         {
             solver = strategy switch
             {
-                Strategy.Bfs => new BfsSolver(Parser.ParseSearchOrder(args[1])),
-                Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(args[1])),
-                Strategy.AStar => new AStarSolver(Parser.ParseHeuristic(args[1])),
+                Strategy.Bfs => new BfsSolver(Parser.ParseSearchOrder(argSearchOrderHeuristic)),
+                Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(argSearchOrderHeuristic)),
+                Strategy.AStar => new AStarSolver(Parser.ParseHeuristic(argSearchOrderHeuristic)),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -46,10 +44,21 @@ public static class Program
             return 1;
         }
 
-        PathfindingData solutionData = solver.Solve(startState, goal);
+        PathfindingData solutionData;
+        try
+        {
+            solutionData = solver.Solve(startState, goal);
+        }
+        catch (SolutionNotFoundException e)
+        {
+            OutputUtility.OutputError(argSolutionFile);
+            OutputUtility.OutputError(argStatsFile);
+            return 0;
+        }
 
-        OutputUtility.OutputSolution(args[3], solutionData);
-        OutputUtility.OutputStats(args[4], solutionData);
+
+        OutputUtility.OutputSolution(argSolutionFile, solutionData);
+        OutputUtility.OutputStats(argStatsFile, solutionData);
 
         return 0;
     }

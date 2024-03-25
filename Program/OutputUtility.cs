@@ -45,4 +45,11 @@ public static class OutputUtility
         writer.WriteLine(data.maxDepth);
         writer.WriteLine(string.Format(numberFormatInfo, "{0:N}", data.processingTimeMilliseconds));
     }
+
+    public static void OutputError(string path)
+    {
+        using FileStream file = new FileStream(path, FileMode.Create);
+        using StreamWriter writer = new StreamWriter(file);
+        writer.WriteLine("-1");
+    }
 }
