@@ -33,6 +33,7 @@ public static class OutputUtility
         NumberFormatInfo numberFormatInfo = new NumberFormatInfo
         {
             NumberDecimalSeparator = ".",
+            NumberGroupSeparator = "",
             NumberDecimalDigits = 3
         };
 
