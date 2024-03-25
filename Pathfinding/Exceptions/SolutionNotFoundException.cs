@@ -2,11 +2,11 @@
 
 public class SolutionNotFoundException : Exception
 {
-    public SolutionNotFoundException(string message) : base(message)
-    {
-    }
+    private PathfindingData _data;
+    public PathfindingData Data => _data;
 
-    public SolutionNotFoundException()
+    public SolutionNotFoundException(PathfindingData data)
     {
+        _data = data;
     }
 }

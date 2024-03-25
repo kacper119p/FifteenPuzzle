@@ -85,6 +85,14 @@ public class BfsSolver : ISolver
             }
         }
 
-        throw new SolutionNotFoundException();
+        throw new SolutionNotFoundException(new PathfindingData()
+        {
+            solution = null,
+            solutionLength = -1,
+            statesVisited = statesVisited,
+            statesProcessed = statesProcessed,
+            maxDepth = maxDepth,
+            processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
+        });
     }
 }

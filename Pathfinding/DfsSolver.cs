@@ -19,8 +19,6 @@ public class DfsSolver : ISolver
         stopwatch.Start();
 
         int maxDepth = 0;
-        long statesVisited = 1;
-        long statesProcessed = 0;
 
         if (start == goal)
         {
@@ -28,8 +26,8 @@ public class DfsSolver : ISolver
             {
                 solution = new LinkedList<Direction>(),
                 solutionLength = 0,
-                statesVisited = statesVisited,
-                statesProcessed = statesProcessed,
+                statesVisited = 1,
+                statesProcessed = 0,
                 maxDepth = maxDepth,
                 processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
             };
@@ -37,7 +35,7 @@ public class DfsSolver : ISolver
 
         Stack<Node> open = new Stack<Node>();
         HashSet<Node> visited = new HashSet<Node>();
-        HashSet<Node> processed = new HashSet<Node>();
+        Dictionary<Node, int> processed = new Dictionary<Node, int>();
 
         Node startNode = new Node(start, null, Direction.None);
 
@@ -47,9 +45,13 @@ public class DfsSolver : ISolver
         {
             Node current = open.Pop();
 
-            if (!processed.Add(current))
+            try
             {
-                continue;
+                processed.Add(current, current.Depth);
+            }
+            catch (ArgumentException)
+            {
+                processed[current] = current.Depth;
             }
             
             if (current.State == goal)
@@ -59,14 +61,12 @@ public class DfsSolver : ISolver
                 {
                     solution = solution,
                     solutionLength = solution.Count,
-                    statesVisited = statesVisited,
-                    statesProcessed = statesProcessed,
+                    statesVisited = visited.Count,
+                    statesProcessed = processed.Count,
                     maxDepth = maxDepth,
                     processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
                 };
             }
-            
-            statesProcessed++;
             
             if (current.Depth >= MaxAllowedDepth)
             {
@@ -78,17 +78,14 @@ public class DfsSolver : ISolver
                 try
                 {
                     Node neighbour = current.NodeFromMove(_searchOrder[i]);
-                    if (visited.Add(neighbour))
-                    {
-                        statesVisited++;
-                    }
+                    visited.Add(neighbour);
 
                     if (neighbour.Depth > maxDepth)
                     {
                         maxDepth = neighbour.Depth;
                     }
-
-                    if (!processed.Contains(neighbour))
+                    
+                    if (!processed.ContainsKey(neighbour) || processed[neighbour] >= neighbour.Depth)
                     {
                         open.Push(neighbour);
                     }
@@ -99,6 +96,14 @@ public class DfsSolver : ISolver
             }
         }
 
-        throw new SolutionNotFoundException();
+        throw new SolutionNotFoundException(new PathfindingData()
+        {
+            solution = null,
+            solutionLength = -1,
+            statesVisited = visited.Count,
+            statesProcessed = processed.Count,
+            maxDepth = maxDepth,
+            processingTimeMilliseconds = stopwatch.Elapsed.TotalMilliseconds
+        });
     }
 }

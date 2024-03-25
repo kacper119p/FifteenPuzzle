@@ -51,9 +51,7 @@ public static class Program
         }
         catch (SolutionNotFoundException e)
         {
-            OutputUtility.OutputError(argSolutionFile);
-            OutputUtility.OutputError(argStatsFile);
-            return 0;
+            solutionData = e.Data;
         }
 
 

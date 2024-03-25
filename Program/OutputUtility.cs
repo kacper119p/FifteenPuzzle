@@ -21,6 +21,11 @@ public static class OutputUtility
     {
         using FileStream file = new FileStream(path, FileMode.Create);
         using StreamWriter writer = new StreamWriter(file);
+        if (data.solution == null)
+        {
+            writer.WriteLine("-1");
+            return;
+        }
         writer.WriteLine(data.solutionLength);
         foreach (Direction direction in data.solution)
         {
@@ -44,12 +49,5 @@ public static class OutputUtility
         writer.WriteLine(data.statesProcessed);
         writer.WriteLine(data.maxDepth);
         writer.WriteLine(string.Format(numberFormatInfo, "{0:N}", data.processingTimeMilliseconds));
-    }
-
-    public static void OutputError(string path)
-    {
-        using FileStream file = new FileStream(path, FileMode.Create);
-        using StreamWriter writer = new StreamWriter(file);
-        writer.WriteLine("-1");
     }
 }
