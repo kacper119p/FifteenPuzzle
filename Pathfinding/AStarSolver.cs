@@ -42,7 +42,7 @@ public class AStarSolver : ISolver
         HashSet<AStarNode> visited = new HashSet<AStarNode>();
         HashSet<AStarNode> processed = new HashSet<AStarNode>();
 
-        AStarNode startNode = new AStarNode(start, null, Direction.None);
+        AStarNode startNode = new AStarNode(start);
 
         open.Enqueue(startNode, 0ul);
         

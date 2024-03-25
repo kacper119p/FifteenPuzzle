@@ -37,7 +37,7 @@ public class DfsSolver : ISolver
         HashSet<Node> visited = new HashSet<Node>();
         Dictionary<Node, int> processed = new Dictionary<Node, int>();
 
-        Node startNode = new Node(start, null, Direction.None);
+        Node startNode = new Node(start);
 
         open.Push(startNode);
         visited.Add(startNode);

@@ -16,6 +16,14 @@ internal class Node
 
     public int Depth => _depth;
 
+    public Node(State state)
+    {
+        _state = state;
+        _cameFrom = null;
+        _depth = 0;
+        _move = Direction.None;
+    }
+
     public Node(State state, Node? cameFrom, Direction move)
     {
         _state = state;

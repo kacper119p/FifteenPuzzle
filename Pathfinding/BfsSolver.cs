@@ -37,7 +37,7 @@ public class BfsSolver : ISolver
         Queue<Node> open = new Queue<Node>();
         HashSet<Node> visited = new HashSet<Node>();
 
-        Node startNode = new Node(start, null, Direction.None);
+        Node startNode = new Node(start);
 
         open.Enqueue(startNode);
         visited.Add(startNode);
