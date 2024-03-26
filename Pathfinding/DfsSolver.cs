@@ -5,12 +5,13 @@ namespace Pathfinding;
 
 public class DfsSolver : ISolver
 {
-    private const int MaxAllowedDepth = 20;
+    private readonly int _maxAllowedDepth;
     private readonly SearchOrder _searchOrder;
 
-    public DfsSolver(SearchOrder searchOrder)
+    public DfsSolver(SearchOrder searchOrder, int maxAllowedDepth)
     {
         _searchOrder = searchOrder;
+        _maxAllowedDepth = maxAllowedDepth;
     }
 
     public PathfindingData Solve(State start, State goal)
@@ -68,7 +69,7 @@ public class DfsSolver : ISolver
                 };
             }
 
-            if (current.Depth >= MaxAllowedDepth)
+            if (current.Depth >= _maxAllowedDepth)
             {
                 continue;
             }
@@ -85,7 +86,7 @@ public class DfsSolver : ISolver
                         maxDepth = neighbour.Depth;
                     }
 
-                    if (!processed.ContainsKey(neighbour) || processed[neighbour] >= neighbour.Depth)
+                    if (!processed.TryGetValue(neighbour, out int depth) || depth > neighbour.Depth)
                     {
                         open.Push(neighbour);
                     }
