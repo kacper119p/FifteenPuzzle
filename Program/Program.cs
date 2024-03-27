@@ -5,7 +5,7 @@ namespace Program;
 
 public static class Program
 {
-    private const int MaxDFSDepth = 20;
+    private const int MaxDfsDepth = 20;
     public static int Main(string[] args)
     {
         string argStrategy = args[0];
@@ -34,7 +34,7 @@ public static class Program
             solver = strategy switch
             {
                 Strategy.Bfs => new BfsSolver(Parser.ParseSearchOrder(argSearchOrderHeuristic)),
-                Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(argSearchOrderHeuristic), MaxDFSDepth),
+                Strategy.Dfs => new DfsSolver(Parser.ParseSearchOrder(argSearchOrderHeuristic), MaxDfsDepth),
                 Strategy.AStar => new AStarSolver(Parser.ParseHeuristic(argSearchOrderHeuristic)),
                 _ => throw new ArgumentOutOfRangeException()
             };

@@ -5,6 +5,7 @@ namespace Pathfinding;
 
 public class DfsSolver : ISolver
 {
+    private const int InitialCollectionsCapacity = 65536;
     private readonly int _maxAllowedDepth;
     private readonly SearchOrder _searchOrder;
 
@@ -34,9 +35,9 @@ public class DfsSolver : ISolver
             };
         }
 
-        Stack<Node> open = new Stack<Node>();
-        HashSet<Node> visited = new HashSet<Node>();
-        Dictionary<Node, int> processed = new Dictionary<Node, int>();
+        Stack<Node> open = new Stack<Node>(InitialCollectionsCapacity);
+        HashSet<Node> visited = new HashSet<Node>(InitialCollectionsCapacity);
+        Dictionary<Node, int> processed = new Dictionary<Node, int>(InitialCollectionsCapacity);
 
         Node startNode = new Node(start);
 

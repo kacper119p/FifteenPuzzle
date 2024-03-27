@@ -6,6 +6,7 @@ namespace Pathfinding;
 
 public class AStarSolver : ISolver
 {
+    private const int InitialCollectionsCapacity = 65536;
     private readonly IHeuristic _heuristic;
 
     private static readonly SearchOrder SearchOrder
@@ -36,9 +37,9 @@ public class AStarSolver : ISolver
             };
         }
 
-        PriorityQueue<AStarNode, ulong> open = new PriorityQueue<AStarNode, ulong>();
-        HashSet<AStarNode> visited = new HashSet<AStarNode>();
-        HashSet<AStarNode> processed = new HashSet<AStarNode>();
+        PriorityQueue<AStarNode, ulong> open = new PriorityQueue<AStarNode, ulong>(InitialCollectionsCapacity);
+        HashSet<AStarNode> visited = new HashSet<AStarNode>(InitialCollectionsCapacity);
+        HashSet<AStarNode> processed = new HashSet<AStarNode>(InitialCollectionsCapacity);
 
         AStarNode startNode = new AStarNode(start);
 

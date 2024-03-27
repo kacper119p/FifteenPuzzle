@@ -5,6 +5,7 @@ namespace Pathfinding;
 
 public class BfsSolver : ISolver
 {
+    private const int InitialCollectionsCapacity = 65536;
     private readonly SearchOrder _searchOrder;
 
     public BfsSolver(SearchOrder searchOrder)
@@ -33,8 +34,8 @@ public class BfsSolver : ISolver
             };
         }
 
-        Queue<Node> open = new Queue<Node>();
-        HashSet<Node> visited = new HashSet<Node>();
+        Queue<Node> open = new Queue<Node>(InitialCollectionsCapacity);
+        HashSet<Node> visited = new HashSet<Node>(InitialCollectionsCapacity);
 
         Node startNode = new Node(start);
 
