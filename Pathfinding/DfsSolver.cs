@@ -47,14 +47,7 @@ public class DfsSolver : ISolver
         {
             Node current = open.Pop();
 
-            try
-            {
-                processed.Add(current, current.Depth);
-            }
-            catch (ArgumentException)
-            {
-                processed[current] = current.Depth;
-            }
+            processed[current] = current.Depth;
 
             if (current.State == goal)
             {
