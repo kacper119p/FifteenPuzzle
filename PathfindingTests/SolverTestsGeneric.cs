@@ -32,7 +32,7 @@ public static class SolverTestsGeneric
         {
             try
             {
-                start.StateFromMove(directions[random.Next(0, directions.Length)]);
+                start = start.StateFromMove(directions[random.Next(0, directions.Length)]);
                 i++;
             }
             catch (MoveException)
