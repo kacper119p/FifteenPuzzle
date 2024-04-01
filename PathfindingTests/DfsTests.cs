@@ -5,6 +5,7 @@ namespace PathfindingTests;
 
 public class DfsTests
 {
+    [Test]
     public void SolvingTestBasic()
     {
         SearchOrder searchOrder = new SearchOrder(new Direction[]
