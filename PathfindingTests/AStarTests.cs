@@ -11,7 +11,14 @@ public class AStarTests
         ISolver solver = new AStarSolver(new Manhattan());
         SolverTestsGeneric.SolvingTestBasic(solver);
     }
-    
+
+    [Test]
+    public void SolvingTestSolved()
+    {
+        ISolver solver = new AStarSolver(new Hamming());
+        SolverTestsGeneric.SolvingTestSolved(solver);
+    }
+
     [Test]
     public void SolvingTestRandom()
     {

@@ -22,6 +22,14 @@ public static class SolverTestsGeneric
         Assert.AreEqual(goal, current);
     }
 
+    public static void SolvingTestSolved(ISolver solver)
+    {
+        State state = State.GenerateSolved(2, 2);
+        PathfindingData result = solver.Solve(state, state);
+        Assert.AreEqual(0, result.solutionLength);
+        Assert.AreEqual(0, result.solution.Count);
+    }
+
     public static void SolvingTestRandom(ISolver solver)
     {
         Direction[] directions = { Direction.Down, Direction.Left, Direction.Up, Direction.Right };
